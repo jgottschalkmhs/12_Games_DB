@@ -38,30 +38,65 @@
             
             <!-- Results go here -->
             <div class="results">
-                <span class="sub_heading">
-                    <a href="<?php echo $find_rs['URL']; ?>">
-                        <?php echo $find_rs['Name']; ?>
-                    </a>
-                </span> - <?php echo $find_rs['Subtitle'] ?>
-                             
-                <p>
-                    <b>Genre</b>:
-                    <?php echo $find_rs['Genre'] ?>
+                
+                <!-- Heading and subtitle -->
+                
+                <div class="flex-container">
+                    <div>
+                        <span class="sub_heading">
+                            <a href="<?php echo $find_rs['URL']; ?>">
+                                <?php echo $find_rs['Name']; ?>
+                            </a>
+                        </span> 
+                    </div>  <!-- / Title -->
                     
-                    <br />
+                    <?php
+                        if($find_rs['Subtitle'] != "") 
+                        
+                        {
+                        
+                        ?>
+                    <div>
+                        
+                       &nbsp; &nbsp; | &nbsp; &nbsp;
+                        
+                        <?php echo $find_rs['Subtitle'] ?>
+                        
+                    </div>  <!-- / subtitle -->
                     
-                    <b>Developer</b>:
-                    <?php echo $find_rs['DevName'] ?>
-                    
-                    <br />
-                    <b>Rating</b>: <?php echo $find_rs['User Rating'] ?> (based on <?php echo $find_rs['Rating Count'] ?> votes)
-                    
-                </p> 
-                <hr />
-                <?php echo $find_rs['Description'] ?>
+                    <?php
+                            
+                        }
+                    ?>
                 
                 
+                </div>
+                <!-- / Heading and subtitle -->
                 
+                <!-- Price --> 
+                
+                <?php 
+                    
+                    if($find_rs['Price'] == 0) {
+                        ?>
+                    <p>Free!</p>
+                
+                    <?php
+                    } // end price if
+                    
+                    else {
+                      
+                      ?>
+                    <b>Price:</b> $<?php echo $find_rs['Price'] ?>
+                
+                    <?php
+                        
+                    }   // end price else (displays cost)
+                
+                ?>
+                
+                <!--- / Price -->
+  
             </div>  <!-- / results -->
             
             <br />

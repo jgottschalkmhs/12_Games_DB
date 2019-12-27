@@ -141,7 +141,10 @@ a.side:hover {color:#264306; }
     padding: 20px;
     }
 
-
+.flex-container {
+  display: flex;
+  flex-wrap: nowrap;
+}
 
 
 
