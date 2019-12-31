@@ -146,6 +146,107 @@ a.side:hover {color:#264306; }
   flex-wrap: nowrap;
 }
 
+/* Star Rating CSS */
+/* Source: https://codepen.io/Bluetidepro/pen/GkpEa */
+
+.star-ratings-sprite {
+  background: url("../images/star-rating-sprite.png") repeat-x;
+  font-size: 0;
+  height: 21px;
+  line-height: 0;
+  overflow: hidden;
+  text-indent: -999em;
+  width: 110px;
+  /* margin: 0 auto; */
+  
+}
+
+.star-ratings-sprite-rating {
+    background: url("../images/star-rating-sprite.png") repeat-x;
+    background-position: 0%;
+    background-position: 0 100%;
+    float: left;
+    height: 21px;
+    display: block;
+}
+
+/* Side Form formatting */
+
+.searchform {
+    width: 250px;
+    margin: 5px;
+}
+
+.search {
+    padding:8px 15px;
+    background:#fff;
+    border:0px solid #dbdbdb;
+    width: 200px;
+}
+
+.submit {
+    font-family: FontAwesome, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    position:relative;
+    width: 45px;
+    left:-1px;
+    background-color: #636263; 
+    color:#d6d3d7;
+    border: 1px solid #636263;
+    border-radius: 0 5px 5px 0;    
+}
+
+input[type="submit"]:hover {
+    background-color: #000;
+}
+
+input.search[type=text], select {
+  width: 200px;
+  
+}
+
+input {
+    height: 40px;
+    padding: 10px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box; 
+}
+
+.free {
+    width: 247px;
+    border-radius: 5px;
+    font-size: 105%;
+}
+
+.advanced-frame{
+    border-radius: 10px;
+    background-color: #f4ff7c;
+    border: solid 1px #4f570b;
+    padding: 5px;
+}
+
+.advanced-button {
+    margin: auto;
+    width: 95%;
+    border-radius: 5px;
+    background-color: #2F480D;
+    font-size: 105%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
