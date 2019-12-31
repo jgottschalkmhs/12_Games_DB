@@ -61,6 +61,34 @@
             
             </select>
                 
+            <!-- Cost -->
+            <div class="flex-container">
+                <div class="adv-txt">Cost&nbsp;(less&nbsp;than): </div> <!-- / cost label div -->
+                <div>
+                <input class="adv" type="text" name="cost" size="40" value=""  placeholder="$..."/>
+                </div> <!-- / cost input div -->
+            </div>
+                
+            <!-- No In App Checkbox -->
+            <input class="adv-txt" type="checkbox" name="in_app" value="0">No In App Purchase
+            
+            <!-- Rating --->
+            <div class="flex-container">
+                <div class="adv-txt">Rating:</div>
+                <div>
+                    <select class="search adv" name="rate_more_less">
+                        <option value="at least">At Least</option>
+                        <option value="at most">At Most</option>
+                    </select>
+                </div>
+                <div>
+                    <input class="adv" type="text" name="rating" size="3" value=""  placeholder=""/>
+                </div> <!-- / rating input -->
+            </div> <!--- / rating -->
+                
+            <!-- Age -->
+                
+            <!-- Search Button is below -->
             <input class="submit advanced-button" type="submit" name="advanced" value="Search &nbsp; &#xf002;" /> 
                 
             </form>
