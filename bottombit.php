@@ -39,7 +39,7 @@
                 
             <select class="search adv" name="genre">
                 
-            <option value="" disabled selected>Genre...</option>
+            <option value="" selected>Genre...</option>
                 
             <!--- get options from database -->
             <?php 
@@ -75,7 +75,7 @@
             </div> <!-- / cost flexbox -->
                 
             <!-- No In App Checkbox -->
-            <input class="adv-txt" type="checkbox" name="in_app" value="0">No In App Purchase
+            <input class="adv-txt" type="checkbox" name="in_app" value=0>No In App Purchase
             
             <!-- Rating --->
             <div class="flex-container">
