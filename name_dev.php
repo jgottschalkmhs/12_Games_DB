@@ -1,6 +1,6 @@
   <?php include("topbit.php");
 
-    $name_dev = $_POST['dev_name'];
+    $name_dev = mysqli_real_escape_string($dbconnect, $_POST['dev_name']);
 
     $find_sql = "SELECT * FROM `game_details`
     JOIN genre ON (game_details.GenreID = genre.GenreID)

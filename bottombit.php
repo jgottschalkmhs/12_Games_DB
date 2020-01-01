@@ -85,8 +85,8 @@
                 </div> <!--- / rating label -->
                 
                 <div>
-                    <select class="search adv" name="rate_more_less">
-                        <option value="" disabled>Choose...</option>
+                    <select class="search adv"  name="rate_more_less">
+                        <option value="" >Choose...</option>
                         <option value="at least">At Least</option>
                         <option value="at most">At Most</option>
                     </select>
@@ -106,7 +106,7 @@
                 </div> <!--- / rating label -->
                 
                 <div>
-                    <select class="search adv" name="age_more_less">
+                    <select class="search adv"  name="age_more_less">
                         <option value="" disabled>Choose...</option>
                         <option value="at least">At Least</option>
                         <option value="at most">At Most</option>
