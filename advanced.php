@@ -9,14 +9,31 @@
     // Check if box is ticked...
     if (isset($_POST['in_app']))
     {
+        // if box is ticked, we don't want in_app purchases
         $in_app = 0;
         $in_app2 = 0;
     }   // end checkbox checker
 
     else {
+        // if box is not ticked we want BOTH in_app and no in_app purchases
         $in_app = 1;
         $in_app2 = 0;
     }
+
+    // rating
+    $rating_more_less = $_POST['rate_more_less'];
+    $rating = $_POST['rating'];
+
+    if ($rating_more_less == "at least")
+    {
+        $operator = ">=";
+    }
+    else
+    {
+        $operator = "<=";
+    }
+
+    // rating
     
     $find_sql = "SELECT * FROM `game_details`
     JOIN genre ON (game_details.GenreID = genre.GenreID)
@@ -25,6 +42,7 @@
     AND `DevName` LIKE '%$dev_name%'
     AND `Genre` LIKE '%$genre%'
     AND (`In App` = $in_app OR `In App` =$in_app2)
+    AND `User Rating` $operator $rating
     
     ";
     $find_query = mysqli_query($dbconnect, $find_sql);
