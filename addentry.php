@@ -11,6 +11,8 @@ $rate_count = "";
 $cost = "";
 $description = "Description (required)";
 
+$has_errors = "no";
+
 // Code below excutes when the form is submitted...
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
@@ -37,7 +39,7 @@ $dev_count=mysqli_num_rows($dev_query);
     
 // if developer is alreday in the database...
 if ($dev_count > 0) {
-    $developerID = $dev_rs['DevID'];
+    $developerID = $dev_rs['DeveloperID'];
 } // end developer if
     
 else {
@@ -49,9 +51,23 @@ else {
     $newdev_query=mysqli_query($dbconnect, $newdev_sql);
     $newdev_rs=mysqli_fetch_assoc($newdev_query);
     
-    $developerID = $newdev_rs['DevID'];
+    $developerID = $newdev_rs['DeveloperID'];
     
 }   // end addition of developer
+    
+// Add entry to database and go to success page
+    
+if ($has_errors == "no")
+{
+  // redirect to success page
+    
+    
+// Insert data from form into game details table
+$addentry_sql = "INSERT INTO `game_details` (`ID`, `Name`, `Subtitle`, `URL`, `GenreID`, `DeveloperID`, `Age`, `User Rating`, `Rating Count`, `Price`, `In App`, `Description`) 
+VALUES (NULL, '$app_name', 'subtitle', 'url', '2', '199', '16', '5', '1234', '1.99', '1', 'description');";
+$addentry_query=mysqli_query($dbconnect,$addentry_sql);
+    
+}
     
 } // end of submit button pushed if
 
@@ -127,7 +143,7 @@ else {
             <div class="flex-container">
                 
                 <div>
-                    <input class="add-field" type="number" name="price" value="<?php echo $cost; ?>" required  placeholder="Cost (number only)"/>
+                    <input class="add-field" type="number" step=".01"  min="0" name="price" value="<?php echo $cost; ?>" required  placeholder="Cost (number only)"/>
                 </div>     <!-- / Price -->
                 
                 <div class="inapp">
