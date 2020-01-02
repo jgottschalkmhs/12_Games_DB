@@ -1,4 +1,61 @@
-  <?php include("topbit.php") ?>
+  <?php include("topbit.php");
+    
+// Initialise variables
+$app_name = "";
+$subtitle = "";
+$url = "";
+$dev_name = "";
+$age = "";
+$rating = "";
+$rate_count = "";
+$cost = "";
+$description = "Description (required)";
+
+// Code below excutes when the form is submitted...
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    
+// Get values from form...  
+$app_name = mysqli_real_escape_string($dbconnect, $_POST['app_name']); 
+$subtitle = mysqli_real_escape_string($dbconnect, $_POST['subtitle']);
+$url = mysqli_real_escape_string($dbconnect, $_POST['url']);
+$genreID = mysqli_real_escape_string($dbconnect, $_POST['genre']);
+$dev_name = mysqli_real_escape_string($dbconnect, $_POST['dev_name']);
+$age = mysqli_real_escape_string($dbconnect, $_POST['age']);
+$rating = mysqli_real_escape_string($dbconnect, $_POST['rating']);
+$rate_count = mysqli_real_escape_string($dbconnect, $_POST['count']);
+$cost = mysqli_real_escape_string($dbconnect, $_POST['price']);
+$in_app = mysqli_real_escape_string($dbconnect, $_POST['in_app']);
+$description = mysqli_real_escape_string($dbconnect, $_POST['description']);
+    
+// error checking will go here...
+    
+// get developer ID if it exists...
+$dev_sql ="SELECT * FROM `developer` WHERE `DevName` LIKE '$dev_name'";
+$dev_query=mysqli_query($dbconnect, $dev_sql);
+$dev_rs=mysqli_fetch_assoc($dev_query);
+$dev_count=mysqli_num_rows($dev_query);
+    
+// if developer is alreday in the database...
+if ($dev_count > 0) {
+    $developerID = $dev_rs['DevID'];
+} // end developer if
+    
+else {
+    $add_dev_sql = "INSERT INTO `developer` (`DeveloperID`, `DevName`) VALUES (NULL, '$dev_name');";
+    $add_dev_query = mysqli_query($dbconnect,$add_dev_sql);
+    
+    // Get developer ID
+    $newdev_sql = "SELECT * FROM `developer` WHERE `DevName` LIKE '$dev_name'";
+    $newdev_query=mysqli_query($dbconnect, $newdev_sql);
+    $newdev_rs=mysqli_fetch_assoc($newdev_query);
+    
+    $developerID = $newdev_rs['DevID'];
+    
+}   // end addition of developer
+    
+} // end of submit button pushed if
+
+?>
 
         <div class="box main">
             <h2>Add An Entry</h2>
@@ -6,11 +63,12 @@
             <form method="post" enctype="multipart/form-data"
                   action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                 
-                <input class="add-field" type="text" name="app_name" size="40" value="" required placeholder="App Name (required) ..."/>
+
+                <input class="add-field" type="text" name="app_name" size="40" value="<?php echo $app_name; ?>" required placeholder="App Name (required) ..."/>
+
+                <input class="add-field" type="text" name="subtitle" size="40" value="<?php echo $subtitle; ?>"  placeholder="Subtitle (optional) ..."/>
                 
-                <input class="add-field" type="text" name="subtitle" size="40" value=""  placeholder="Subtitle (optional) ..."/>
-                
-                <input class="add-field" type="text" name="url" size="40" value="" required placeholder="URL (required)"/>
+                <input class="add-field" type="text" name="url" size="40" value="<?php echo $url; ?>" required placeholder="URL (required)"/>
                 
                 <div class="flex-container">
                     
@@ -30,7 +88,7 @@
 
                 do {
                     ?>
-                <option value="<?php echo $genre_rs['Genre']; ?>"><?php echo $genre_rs['Genre']; ?></option>
+                <option value="<?php echo $genre_rs['GenreID']; ?>"><?php echo $genre_rs['Genre']; ?></option>
 
                 <?php
 
@@ -44,7 +102,7 @@
             </div> <!-- / genre div -->
                     
             <div>
-                <input class="add-field" type="text" name="dev_name" value="" required size="40" placeholder="Developer Name (required) ..."/>
+                <input class="add-field" type="text" name="dev_name" value="<?php echo $dev_name; ?>" required size="40" placeholder="Developer Name (required) ..."/>
                 
             </div>  <!-- / developer div -->
             </div> <!-- / genre | developer flex -->
@@ -53,15 +111,15 @@
             <div class="flex-container">
             
                 <div>
-                    <input class="add-field" type="number" name="age" value="" placeholder="Age (0 for all)"/>
+                    <input class="add-field" type="number" name="age" value="<?php echo $age; ?>" placeholder="Age (0 for all)"/>
                 </div>     <!-- Age -->
                 
                 <div>
-                    <input class="add-field" type="number" name="rating" value="" required  placeholder="Rating (0-5)"/>
+                    <input class="add-field" type="number" name="rating" value="<?php echo $rating; ?>" required  placeholder="Rating (0-5)"/>
                 </div>     <!-- Rating -->
                 
                 <div>
-                    <input class="add-field" type="number" name="count" value="" required  placeholder="# of Ratings"/>
+                    <input class="add-field" type="number" name="count" value="<?php echo $rate_count; ?>" required  placeholder="# of Ratings"/>
                 </div>     <!-- Count -->
                 
             </div>  <!-- / age and rating flexbox -->
@@ -69,7 +127,7 @@
             <div class="flex-container">
                 
                 <div>
-                    <input class="add-field" type="number" name="price" value="" required  placeholder="Cost (number only)"/>
+                    <input class="add-field" type="number" name="price" value="<?php echo $cost; ?>" required  placeholder="Cost (number only)"/>
                 </div>     <!-- / Price -->
                 
                 <div class="inapp">
@@ -84,7 +142,7 @@
             </div>  <!-- / In App and Price flex -->
                 
         <p>            
-            <textarea class="add-field" name="description" required rows="6" cols="100" placeholder="Description (required)"></textarea>
+    <textarea class="add-field" name="description" required rows="6" cols="100"><?php echo $description; ?></textarea>
 		</p>
                 
         <p>
