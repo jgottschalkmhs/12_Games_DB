@@ -1,6 +1,6 @@
         <div class="box side">
            
-           <h2>Add an App | 
+            <h2><a href="addentry.php">Add an App</a> | 
                <a class="side" href="showall.php">Show All</a></h2>
            
             <!-- Name / Developer search bar -->
@@ -107,7 +107,7 @@
                 
                 <div>
                     <select class="search adv"  name="age_more_less">
-                        <option value="" disabled>Choose...</option>
+                        <option value="" >Choose...</option>
                         <option value="at least">At Least</option>
                         <option value="at most">At Most</option>
                     </select>

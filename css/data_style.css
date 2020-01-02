@@ -143,7 +143,7 @@ a.side:hover {color:#264306; }
 
 .flex-container {
   display: flex;
-  flex-wrap: nowrap;
+    flex-wrap: wrap-reverse;
 }
 
 /* Star Rating CSS */
@@ -247,14 +247,31 @@ select {
     margin: auto;
     margin-right: 10px;
     margin-left: 10px;
+    }
+
+/* Add Entry Styling */
+
+.add-field {
+   width: 95%; 
+    margin-bottom: 5px;
 }
 
+.radio-btn{
+    height: 0;
+    padding: 30px; 
+}
 
+.inapp {
+        height: 35px; 
+    
+}
 
-
-
-
-
+textarea,
+input[type=text] {
+    font-family: 'Lato', sans-serif;
+    font-size: 95%;
+    padding: 10px;
+}
 
 
 
