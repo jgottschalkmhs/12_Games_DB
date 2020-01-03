@@ -120,7 +120,7 @@
             </p>
                 
             <p>
-                <i><?php // echo $find_rs['Description'] ?></i>
+                <i><?php echo $find_rs['Description'] ?></i>
             </p>
   
             </div>  <!-- / results -->

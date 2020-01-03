@@ -1,4 +1,4 @@
-  <?php include("topbit.php");
+ <?php include("topbit.php");
     
 // Initialise variables
 $app_name = "";
@@ -54,23 +54,22 @@ else {
     $developerID = $newdev_rs['DeveloperID'];
     
 }   // end addition of developer
-    
-// Add entry to database and go to success page
-    
-if ($has_errors == "no")
-{
-  // redirect to success page
-    
-    
-// Insert data from form into game details table
+
+// if there are no errors...
+
+if ($has_errors == "no") {   
+
+// Go to success page...
+header('Location: add_success.php');
+      
+// Add entry to database    
 $addentry_sql = "INSERT INTO `game_details` (`ID`, `Name`, `Subtitle`, `URL`, `GenreID`, `DeveloperID`, `Age`, `User Rating`, `Rating Count`, `Price`, `In App`, `Description`) 
-VALUES (NULL, '$app_name', 'subtitle', 'url', '2', '199', '16', '5', '1234', '1.99', '1', 'description');";
+VALUES (NULL, '$app_name', '$subtitle', '$url', $genreID, $developerID, $age, $rating, $rate_count, $cost, $in_app, '$description');";
 $addentry_query=mysqli_query($dbconnect,$addentry_sql);
     
-}
+}   // End of insert entry 
     
 } // end of submit button pushed if
-
 ?>
 
         <div class="box main">
@@ -101,17 +100,13 @@ $addentry_query=mysqli_query($dbconnect,$addentry_sql);
                 $genre_sql="SELECT * FROM `genre` ORDER BY `genre`.`Genre` ASC ";
                 $genre_query=mysqli_query($dbconnect, $genre_sql);
                 $genre_rs=mysqli_fetch_assoc($genre_query);
-
                 do {
                     ?>
                 <option value="<?php echo $genre_rs['GenreID']; ?>"><?php echo $genre_rs['Genre']; ?></option>
 
                 <?php
-
                 }   // end genre do loop
-
                 while ($genre_rs=mysqli_fetch_assoc($genre_query))
-
                 ?>
             
             </select>
@@ -143,7 +138,7 @@ $addentry_query=mysqli_query($dbconnect,$addentry_sql);
             <div class="flex-container">
                 
                 <div>
-                    <input class="add-field" type="number" step=".01"  min="0" name="price" value="<?php echo $cost; ?>" required  placeholder="Cost (number only)"/>
+                    <input class="add-field" type="number" step="0.01" min="0" name="price" value="<?php echo $cost; ?>" required  placeholder="Cost (number only)"/>
                 </div>     <!-- / Price -->
                 
                 <div class="inapp">
