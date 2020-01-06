@@ -1,9 +1,8 @@
- <?php include("topbit.php");
+<?php include("topbit.php");
     
 // Initialise variables
 $app_name = "";
 $subtitle = "";
-$genre = "";
 $url = "";
 $dev_name = "";
 $age = "";
@@ -11,8 +10,6 @@ $rating = "";
 $rate_count = "";
 $cost = "";
 $description = "Description (required)";
-
-// Code for error checking (set everything to 'no errors' at start)
 
 $has_errors = "no";
 
@@ -36,17 +33,15 @@ $cost = mysqli_real_escape_string($dbconnect, $_POST['price']);
 $in_app = mysqli_real_escape_string($dbconnect, $_POST['in_app']);
 $description = mysqli_real_escape_string($dbconnect, $_POST['description']);
     
-    
 // error checking will go here...
-
+    
 // check App Name is not blank
 if ($app_name == "") {
     $has_errors = "yes";
     $app_error = "error-text";
     $app_field = "form-error";
     }
-
-
+    
 // Check URL is valid...
     
 // Remove all illegal characters from a url
@@ -58,7 +53,6 @@ if (filter_var($url, FILTER_VALIDATE_URL) == false) {
     $url_field = "form-error";
 }
  
-    
 // check Genre is not blank
     
 // check Developer name is not blank
@@ -72,14 +66,12 @@ if (filter_var($url, FILTER_VALIDATE_URL) == false) {
 // check cost is a number, if it's blank, set it to 0
     
 // check description is not blank / 'Description required'
-    
+
 // if there are no errors...
-
 if ($has_errors == "no") {   
-
 // Go to success page...
 header('Location: add_success.php');
-    
+
 // get developer ID if it exists...
 $dev_sql ="SELECT * FROM `developer` WHERE `DevName` LIKE '$dev_name'";
 $dev_query=mysqli_query($dbconnect, $dev_sql);
@@ -103,7 +95,7 @@ else {
     $developerID = $newdev_rs['DeveloperID'];
     
 }   // end addition of developer
-      
+    
 // Add entry to database    
 $addentry_sql = "INSERT INTO `game_details` (`ID`, `Name`, `Subtitle`, `URL`, `GenreID`, `DeveloperID`, `Age`, `User Rating`, `Rating Count`, `Price`, `In App`, `Description`) 
 VALUES (NULL, '$app_name', '$subtitle', '$url', $genreID, $developerID, $age, $rating, $rate_count, $cost, $in_app, '$description');";
@@ -126,7 +118,6 @@ $getid_query=mysqli_query($dbconnect, $getid_sql);
 $getid_rs=mysqli_fetch_assoc($getid_query);
     
 $ID = $getid_rs['ID'];
-
 $_SESSION['ID']=$ID;
     
 }   // End of insert entry 
@@ -146,6 +137,7 @@ $_SESSION['ID']=$ID;
                 <input class="add-field <?php echo $app_field; ?>" type="text" name="app_name" size="40" value="<?php echo $app_name; ?>" placeholder="App Name (required) ..."/>
 
                 <input class="add-field" type="text" name="subtitle" size="40" value="<?php echo $subtitle; ?>"  placeholder="Subtitle (optional) ..."/>
+                
                 
                 <div class="<?php echo $url_error; ?>">
                     Please provide a valid URL
@@ -193,11 +185,11 @@ $_SESSION['ID']=$ID;
                 </div>     <!-- Age -->
                 
                 <div>
-                    <input class="add-field" type="number" step= "0.1" name="rating" value="<?php echo $rating; ?>" placeholder="Rating (0-5)"/>
+                    <input class="add-field" type="number" name="rating" value="<?php echo $rating; ?>"  placeholder="Rating (0-5)"/>
                 </div>     <!-- Rating -->
                 
                 <div>
-                    <input class="add-field" type="number" name="count" value="<?php echo $rate_count; ?>" placeholder="# of Ratings"/>
+                    <input class="add-field" type="number" name="count" value="<?php echo $rate_count; ?>"  placeholder="# of Ratings"/>
                 </div>     <!-- Count -->
                 
             </div>  <!-- / age and rating flexbox -->
@@ -205,7 +197,7 @@ $_SESSION['ID']=$ID;
             <div class="flex-container">
                 
                 <div>
-                    <input class="add-field" type="number" step="0.01" min="0" name="price" value="<?php echo $cost; ?>" placeholder="Cost (number only)"/>
+                    <input class="add-field" type="number" step="0.01" min="0" name="price" value="<?php echo $cost; ?>"  placeholder="Cost (number only)"/>
                 </div>     <!-- / Price -->
                 
                 <div class="inapp">
