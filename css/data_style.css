@@ -143,8 +143,8 @@ a.side:hover {color:#264306; }
 
 .flex-container {
   display: flex;
-    flex-wrap: wrap-reverse;
 }
+
 
 /* Star Rating CSS */
 /* Source: https://codepen.io/Bluetidepro/pen/GkpEa */
@@ -250,6 +250,11 @@ select {
 
 /* Add Entry Styling */
 
+.add-entry{
+    max-width: 550px;
+    margin:auto;
+}
+
 .add-field {
    width: 95%; 
     margin-bottom: 5px;
@@ -260,10 +265,6 @@ select {
     padding: 30px; 
 }
 
-.inapp {
-        height: 35px; 
-    
-}
 
 textarea,
 input[type=text] {
@@ -293,7 +294,9 @@ input[type=text] {
     color: darkred;
 }
 
-
+.mutli {
+ flex-grow: 1;   
+}
 
 
 
