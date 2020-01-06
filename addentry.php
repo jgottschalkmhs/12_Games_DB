@@ -162,6 +162,7 @@ $_SESSION['ID']=$ID;
         <div class="box main">
             <div class=" add-entry">
             <h2>Add An Entry</h2>
+                <i>Most fields are required.  If you leave the age field blank, the age will be set to 'all ages'.  Likewise, if the cost is left blank, this will be set to free.</i>
             
             <form method="post" enctype="multipart/form-data"
                   action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
@@ -258,10 +259,14 @@ $_SESSION['ID']=$ID;
                 
                 </div>     <!-- / In App -->
                 
-                
-        <p>            
-    <textarea class="add-field" name="description" rows="6"><?php echo $description; ?></textarea>
-		</p>
+                <br />
+
+        <div class="<?php echo $description_error; ?>">
+            Please enter a valid description.
+        </div>
+                   
+    <textarea class="add-field <?php echo $description_field?>" name="description" rows="6"><?php echo $description; ?></textarea>
+		
                 
         <p>
 			<input class="submit advanced-button" type="submit" value="Submit" />
