@@ -11,7 +11,13 @@ $rate_count = "";
 $cost = "";
 $description = "Description (required)";
 
+// Code for error checking (set everything to 'no errors' at start)
+
 $has_errors = "no";
+
+// set up error field colours / visibilty (no errors at first)
+$app_error = "no_error";
+$app_field = "no-error";
 
 // Code below excutes when the form is submitted...
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -29,7 +35,25 @@ $cost = mysqli_real_escape_string($dbconnect, $_POST['price']);
 $in_app = mysqli_real_escape_string($dbconnect, $_POST['in_app']);
 $description = mysqli_real_escape_string($dbconnect, $_POST['description']);
     
+    
 // error checking will go here...
+    
+if ($app_name == "") {
+    $app_error = "error-text";
+    $app_field = "form-error";
+    $has_errors = "yes";
+    echo "missing app name";
+    }
+
+    
+
+
+// if there are no errors...
+
+if ($has_errors == "no") {   
+
+// Go to success page...
+header('Location: add_success.php');
     
 // get developer ID if it exists...
 $dev_sql ="SELECT * FROM `developer` WHERE `DevName` LIKE '$dev_name'";
@@ -54,13 +78,6 @@ else {
     $developerID = $newdev_rs['DeveloperID'];
     
 }   // end addition of developer
-
-// if there are no errors...
-
-if ($has_errors == "no") {   
-
-// Go to success page...
-header('Location: add_success.php');
       
 // Add entry to database    
 $addentry_sql = "INSERT INTO `game_details` (`ID`, `Name`, `Subtitle`, `URL`, `GenreID`, `DeveloperID`, `Age`, `User Rating`, `Rating Count`, `Price`, `In App`, `Description`) 
@@ -98,8 +115,10 @@ $_SESSION['ID']=$ID;
             <form method="post" enctype="multipart/form-data"
                   action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                 
-
-                <input class="add-field" type="text" name="app_name" size="40" value="<?php echo $app_name; ?>" required placeholder="App Name (required) ..."/>
+                <div class="<?php $app_error; ?>">
+                    Please fill in the 'App Name' field
+                </div>
+                <input class="add-field <?php $app_field; ?>" type="text" name="app_name" size="40" value="<?php echo $app_name; ?>" placeholder="App Name (required) ..."/>
 
                 <input class="add-field" type="text" name="subtitle" size="40" value="<?php echo $subtitle; ?>"  placeholder="Subtitle (optional) ..."/>
                 

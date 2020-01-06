@@ -179,7 +179,6 @@ a.side:hover {color:#264306; }
 
 .search {
     padding:8px 15px;
-    background:#fff;
     border:0px solid #dbdbdb;
     width: 200px;
 }
@@ -273,6 +272,26 @@ input[type=text] {
     padding: 10px;
 }
 
+/* Form Error CSS */
+
+/* field backgrounds */
+.form-ok {
+    background-color:#fff;
+}
+
+.form-error {
+    background-color: #ff9e9e;
+}
+
+
+/* error messages */
+.no-error {
+    display: none;
+}
+
+.error-text {
+    color: darkred;
+}
 
 
 
