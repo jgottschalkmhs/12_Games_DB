@@ -163,6 +163,7 @@ $_SESSION['ID']=$ID;
             <div class=" add-entry">
             <h2>Add An Entry</h2>
                 <i>Most fields are required.  If you leave the age field blank, the age will be set to 'all ages'.  Likewise, if the cost is left blank, this will be set to free.</i>
+            <br /><br />
             
             <form method="post" enctype="multipart/form-data"
                   action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
@@ -250,7 +251,7 @@ $_SESSION['ID']=$ID;
                     <input class="add-field" type="number" step="0.01" min="0" name="price" value="<?php echo $cost; ?>"  placeholder="Cost (number only)"/>
                 </div>     <!-- / Price -->
                 
-                <div>
+                <div class="in-app">
                 <b>In App Purchase: </b>
                 <!-- defaults to 'yes' -->
                 <!-- NOTE: value in database is boolean, so 'no' becomes 0 and 'yes' becomes 1 -->

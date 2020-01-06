@@ -186,7 +186,7 @@ a.side:hover {color:#264306; }
 .submit {
     font-family: FontAwesome, 'Helvetica Neue', Helvetica, Arial, sans-serif;
     position:relative;
-    width: 45px;
+    width: 95%;
     left:-1px;
     background-color: #636263; 
     color:#d6d3d7;
@@ -205,6 +205,7 @@ input.search[type=text], select {
 
 input {
     height: 40px;
+    width: 95%;
     padding: 10px;
     display: inline-block;
     border: 1px solid #ccc;
@@ -256,15 +257,13 @@ select {
 }
 
 .add-field {
-   width: 95%; 
+    width: 95%; 
     margin-bottom: 5px;
 }
 
-.radio-btn{
-    height: 0;
-    padding: 30px; 
+.in-app {
+    
 }
-
 
 textarea,
 input[type=text] {
@@ -293,13 +292,6 @@ input[type=text] {
 .error-text {
     color: darkred;
 }
-
-.mutli {
- flex-grow: 1;   
-}
-
-
-
 
 
 
