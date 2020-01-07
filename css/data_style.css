@@ -312,5 +312,9 @@ input[type=text] {
     color: darkred;
 }
 
+.defaulted {
+    color: darkgreen;
+}
+
 
 
