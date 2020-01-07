@@ -95,15 +95,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     
 // check age is an integer, it is blank, set it to zero
-if ($age == "" || $age == 0) {
+if ($age == "" || $age == "0") {
     $age = 0;
     $age_message = "The age has been set to 0 (ie: all ages)";
     $age_error = "defaulted";
     }
+    
 
 // check that age is a number that is more than 0
 else if (!ctype_digit($age) || $age < 0) {
-    $age_message = "Please enter an integer that is 0 or more";
+    $age_message = "Age must be an integer that is 0 or more";
     $has_errors = "yes";
     $age_error = "error-text";
     $age_field = "form-error";
@@ -117,14 +118,14 @@ if (!is_numeric($rating) || $rating < 0 || $rating > 5) {
 }
     
 // check number of ratings is an integer that is more than 0
-if (!ctype_digit($rate_count) || $rate_count < 0) {
+if (!ctype_digit($rate_count) || $rate_count < 1) {
     $has_errors = "yes";
     $count_error = "error-text";
     $count_field = "form-error";
 }
     
 // check cost is a number, if it's blank, set it to 0
-if ($cost == "" || $cost == 0) {
+if ($cost == "" || $cost == "0") {
     $cost = 0;
     $cost_message = "The price has been set to 0 (ie: free)";
     $cost_error = "defaulted";
@@ -132,7 +133,7 @@ if ($cost == "" || $cost == 0) {
 
 // check that age is a number that is more than 0
 else if (!is_numeric($cost) || $cost < 0) {
-    $cost_message = "Please enter a number that is 0 or more";
+    $cost_message = "The cost should be 0 or more (no $ symbols please)";
     $cost_errors = "yes";
     $cost_error = "error-text";
     $cost_field = "form-error";
@@ -228,7 +229,7 @@ if ($description == "" || $description == "Please enter a description") {
                 
             <!-- URL (required, must start http://) -->
             <div class="<?php echo $url_error; ?>">
-                Please provide a valid URL
+                Please provide a valid URL (include the http://)
             </div>
             <input class="add-field <?php echo $url_field; ?>" type="text" name="url" size="40" value="<?php echo $url; ?>" placeholder="URL (required)"/>
                 
