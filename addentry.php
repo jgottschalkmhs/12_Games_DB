@@ -55,6 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($has_errors == "no") {
     
     // Go to success page...
+    header('Location: add_success.php');
     
     // get developer ID if it exists...
     $dev_sql ="SELECT * FROM `developer` WHERE `DevName` LIKE '$dev_name'";
@@ -81,11 +82,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }   // end adding developer to developer table
     
     // Add entry to database
+    $addentry_sql = "INSERT INTO `game_details` (`ID`, `Name`, `Subtitle`, `URL`, `GenreID`, `DeveloperID`, `Age`, `User Rating`, `Rating Count`, `Price`, `In App`, `Description`) 
+    VALUES (NULL, '$app_name', '$subtitle', '$url', $genreID, $developerID, $age, $rating, $rate_count, $cost, $in_app, '$description');";
+    $addentry_query=mysqli_query($dbconnect,$addentry_sql);
+
+    // Get ID for next page
+    $getid_sql = "SELECT * FROM `game_details` WHERE 
+    `Name` LIKE '$app_name' 
+    AND `Subtitle` LIKE '$subtitle' 
+    AND `URL` LIKE '$url' 
+    AND `GenreID` = $genreID 
+    AND `DeveloperID` = $developerID 
+    AND `Age` = $age 
+    AND `User Rating` = $rating 
+    AND `Rating Count` = $rate_count 
+    AND `Price` = $cost
+    AND `In App` = $in_app
+    ";
+    $getid_query=mysqli_query($dbconnect, $getid_sql);
+    $getid_rs=mysqli_fetch_assoc($getid_query);
         
+    $ID = $getid_rs['ID'];
+    $_SESSION['ID']=$ID;
+        
+            
     }   // end of 'no errors' if
     
-    echo "You pushed the button";
-    
+        
 }   // end of button submitted code
 
 ?>

@@ -12,7 +12,6 @@
     $find_rs = mysqli_fetch_assoc($find_query);
     $count = mysqli_num_rows($find_query);
 
-
 ?>
 
         <div class="box main">
