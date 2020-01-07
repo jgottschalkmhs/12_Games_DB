@@ -1,4 +1,9 @@
 <?php include("topbit.php");
+
+// Get Genre list from database
+$genre_sql="SELECT * FROM `genre` ORDER BY `genre`.`Genre` ASC ";
+$genre_query=mysqli_query($dbconnect, $genre_sql);
+$genre_rs=mysqli_fetch_assoc($genre_query);
     
 // Initialise variables
 $app_name = "";
@@ -14,8 +19,9 @@ $description = "Description (required)";
 $has_errors = "no";
 
 // set up error field colours / visibilty (no errors at first)
-$app_error = $url_error = "no-error";
-$app_field = $url_field = "form-ok";
+$app_error = $url_error = $dev_error = $description_error = $genre_error = "no-error";
+
+$app_field = $url_field = $dev_field = $description_field = $genre_field = "form-ok";
 
 // Code below excutes when the form is submitted...
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -24,7 +30,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $app_name = mysqli_real_escape_string($dbconnect, $_POST['app_name']); 
 $subtitle = mysqli_real_escape_string($dbconnect, $_POST['subtitle']);
 $url = mysqli_real_escape_string($dbconnect, $_POST['url']);
+
 $genreID = mysqli_real_escape_string($dbconnect, $_POST['genre']);
+// if GenreID, is not blank, get genre so that genre box does not lose its value if there are errors
+if ($genreID != "") {
+    $genreitem_sql = "SELECT * FROM `genre` WHERE `GenreID` = $genreID";
+    $genreitem_query=mysqli_query($dbconnect, $genreitem_sql);
+    $genreitem_rs=mysqli_fetch_assoc($genreitem_query);
+    
+    $genre = $genreitem_rs['Genre'];
+}
+    
 $dev_name = mysqli_real_escape_string($dbconnect, $_POST['dev_name']);
 $age = mysqli_real_escape_string($dbconnect, $_POST['age']);
 $rating = mysqli_real_escape_string($dbconnect, $_POST['rating']);
@@ -55,7 +71,19 @@ if (filter_var($url, FILTER_VALIDATE_URL) == false) {
  
 // check Genre is not blank
     
+if ($genreID == "") {
+    $has_errors = "yes";
+    $genre_error = "error-text";
+    $genre_field = "form-error";
+}
+    
 // check Developer name is not blank
+if ($dev_name == "") {
+    $has_errors = "yes";
+    $dev_error = "error-text";
+    $dev_field = "form-error";
+    }
+    
     
 // check age is an integer, it is blank, set it to zero
     
@@ -66,6 +94,12 @@ if (filter_var($url, FILTER_VALIDATE_URL) == false) {
 // check cost is a number, if it's blank, set it to 0
     
 // check description is not blank / 'Description required'
+if ($description == "" || $description = "Description (required)") {
+    $has_errors = "yes";
+    $description_error = "error-text";
+    $description_field = "form-error";
+    }
+    
 
 // if there are no errors...
 if ($has_errors == "no") {   
@@ -126,7 +160,10 @@ $_SESSION['ID']=$ID;
 ?>
 
         <div class="box main">
+            <div class=" add-entry">
             <h2>Add An Entry</h2>
+                <i>Most fields are required.  If you leave the age field blank, the age will be set to 'all ages'.  Likewise, if the cost is left blank, this will be set to free.</i>
+            <br /><br />
             
             <form method="post" enctype="multipart/form-data"
                   action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
@@ -143,22 +180,37 @@ $_SESSION['ID']=$ID;
                     Please provide a valid URL
                 </div>
                 <input class="add-field <?php echo $url_field; ?>" type="text" name="url" size="40" value="<?php echo $url; ?>" placeholder="URL (required)"/>
-                
-                <div class="flex-container">
-                    
+                            
                 <div>
+                    
+                <div class="<?php echo $genre_error; ?>">
+                Please choose a genre
+                </div>
                 
                 <!-- Genre dropdown box -->
                 
-                <select class="search adv" name="genre">
+                <select class="search adv <?php echo $genre_field; ?>" name="genre">
+                    
+                <?php 
+                // Selected Genre - should be blank if not selected
+                    if($genreID == "") { ?>
                 
                 <option value="" selected>Genre (Choose something)...</option>
+                    <?php
+                    } // end genre if
+                        
+                // If genre is not blank, 'remember' users' selection
+                    else {
+                         ?>
                 
+                <option value="<?php echo $genreID ?>" selected><?php echo "$genre" ?></option>
+                    <?php
+                    }
+                ?>
+                    
                 <!--- get options from database -->
                 <?php 
-                $genre_sql="SELECT * FROM `genre` ORDER BY `genre`.`Genre` ASC ";
-                $genre_query=mysqli_query($dbconnect, $genre_sql);
-                $genre_rs=mysqli_fetch_assoc($genre_query);
+
                 do {
                     ?>
                 <option value="<?php echo $genre_rs['GenreID']; ?>"><?php echo $genre_rs['Genre']; ?></option>
@@ -170,16 +222,18 @@ $_SESSION['ID']=$ID;
             
             </select>
             </div> <!-- / genre div -->
+            
                     
             <div>
-                <input class="add-field" type="text" name="dev_name" value="<?php echo $dev_name; ?>" size="40" placeholder="Developer Name (required) ..."/>
+                <div class="<?php echo $dev_error; ?>">
+                        Developer name can't be blank
+                </div>
+                
+                <input class="add-field <?php echo $dev_field ?>" type="text" name="dev_name" value="<?php echo $dev_name; ?>" size="40" placeholder="Developer Name (required) ..."/>
+                
                 
             </div>  <!-- / developer div -->
-            </div> <!-- / genre | developer flex -->
-                
-            
-            <div class="flex-container">
-            
+                            
                 <div>
                     <input class="add-field" type="number" name="age" value="<?php echo $age; ?>" placeholder="Age (0 for all)"/>
                 </div>     <!-- Age -->
@@ -192,34 +246,36 @@ $_SESSION['ID']=$ID;
                     <input class="add-field" type="number" name="count" value="<?php echo $rate_count; ?>"  placeholder="# of Ratings"/>
                 </div>     <!-- Count -->
                 
-            </div>  <!-- / age and rating flexbox -->
-                
-            <div class="flex-container">
                 
                 <div>
                     <input class="add-field" type="number" step="0.01" min="0" name="price" value="<?php echo $cost; ?>"  placeholder="Cost (number only)"/>
                 </div>     <!-- / Price -->
                 
-                <div class="inapp">
-                <b>In App Purchase: </b>
-                <!-- defaults to 'yes' -->
-                <!-- NOTE: value in database is boolean, so 'no' becomes 0 and 'yes' becomes 1 -->
-                <input class="radio-btn" type="radio" name="in_app" value="1" checked="checked">Yes
-                <input class="radio-btn" type="radio" name="in_app" value="0">No
+                <br />
+                <div>
+                    <b>In App Purchase: </b>
+                    <!-- defaults to 'yes' -->
+                    <!-- NOTE: value in database is boolean, so 'no' becomes 0 and 'yes' becomes 1 -->
                 
-                </div>     <!-- / In App -->
-                
-            </div>  <!-- / In App and Price flex -->
-                
-        <p>            
-    <textarea class="add-field" name="description" rows="6" cols="100"><?php echo $description; ?></textarea>
-		</p>
+                    <input type="radio" name="in_app" value="1" checked="checked" />Yes
+                    <input type="radio" name="in_app" value="0" />No
+                </div>
+                <br />
+
+        <div class="<?php echo $description_error; ?>">
+            Please enter a valid description.
+        </div>
+                   
+    <textarea class="add-field <?php echo $description_field?>" name="description" rows="6"><?php echo $description; ?></textarea>
+		
                 
         <p>
 			<input class="submit advanced-button" type="submit" value="Submit" />
 		</p>
             
-            </form>          
+            </form>     
+                
+            </div>  <!--- / end add entry div -->
             
         </div> <!-- / main -->
         

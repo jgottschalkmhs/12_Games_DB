@@ -179,19 +179,34 @@ a.side:hover {color:#264306; }
 
 .search {
     padding:8px 15px;
-    border:0px solid #dbdbdb;
     width: 200px;
 }
 
+/* submit button, width applies to small button next to basic name / developer search */
 .submit {
     font-family: FontAwesome, 'Helvetica Neue', Helvetica, Arial, sans-serif;
     position:relative;
-    width: 95%;
+    width: 40px;
     left:-1px;
     background-color: #636263; 
     color:#d6d3d7;
     border: 1px solid #636263;
     border-radius: 0 5px 5px 0;    
+}
+
+/* formatting for BOTH sidebar and add entry */
+input {
+    height: 40px;
+    width: 95%;
+    padding: 10px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box; 
+}
+
+.adv-cost {
+    width: 90%;
+    margin-bottom: 5px;
 }
 
 input[type="submit"]:hover {
@@ -203,19 +218,26 @@ input.search[type=text], select {
   
 }
 
-input {
-    height: 40px;
-    width: 95%;
-    padding: 10px;
-    display: inline-block;
-    border: 1px solid #ccc;
-    box-sizing: border-box; 
+/* ensures that text is next to checbox in advanced search form */
+input[type="checkbox"] {
+    display: inline;
+    width: auto;
 }
 
+/* puts radio buttons next to each other in add entry form */
+input[type="radio"] {
+    height: 0;
+    width: auto;
+    display: inline;
+}
+
+
+/* Controls height of options in dropdown menus */
 select {
     height: 40px;
 }
 
+/* submit button for free, no inapp purchase */
 .free {
     width: 247px;
     border-radius: 5px;
@@ -229,6 +251,7 @@ select {
     padding: 5px;
 }
 
+/* submit button for advanced search & entry form */
 .advanced-button {
     margin: auto;
     width: 95%;
@@ -249,7 +272,7 @@ select {
     margin-left: 10px;
     }
 
-/* Add Entry Styling */
+/* Extra Add Entry Styling */
 
 .add-entry{
     max-width: 550px;
@@ -259,10 +282,6 @@ select {
 .add-field {
     width: 95%; 
     margin-bottom: 5px;
-}
-
-.in-app {
-    
 }
 
 textarea,

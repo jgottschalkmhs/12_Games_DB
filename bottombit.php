@@ -15,7 +15,7 @@
             <!-- free, no In App purchase button -->
             <form class="searchform" method="post" action="free.php" enctype="multipart/form-data">
                 
-                <input class="submit free" type="submit" name="free" value="Free with No In App Purchase &nbsp; &#xf002;" />
+            <input class="submit free" type="submit" name="free" value="Free with No In App Purchase &nbsp; &#xf002;" />
                 
             </form>
             
@@ -69,7 +69,7 @@
                 </div> <!-- / cost label -->
                 
                 <div>
-                    <input class="adv" type="text" name="cost" size="40" value=""  placeholder="$..."/>
+                    <input class="adv-cost" type="text" name="cost" value=""  placeholder="$..."/>
                 </div> <!-- / cost input box -->
                 
             </div> <!-- / cost flexbox -->
@@ -94,7 +94,7 @@
                 </div> <!-- / rating drop down -->
                 
                 <div>
-                    <input class="adv" type="text" name="rating" size="2" value=""  placeholder=""/>
+                    <input class="adv" type="text" name="rating" size="4" value=""  placeholder=""/>
                 </div> <!-- / rating amount -->
             </div>  <!-- / rating flex box -->
                 
@@ -115,7 +115,7 @@
                 </div> <!-- / rating drop down -->
                 
                 <div>
-                    <input class="adv" type="text" name="age" size="2" value=""  placeholder=""/>
+                    <input class="adv" type="text" name="age" size="4" value=""  placeholder=""/>
                 </div> <!-- / rating amount -->
             </div>  <!-- / rating flex box -->
                 
